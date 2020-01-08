@@ -2,52 +2,58 @@ $(() => {
     $('#meteo-form').on('submit', (event)=> {
         event.preventDefault();
         let city = $('#city').val();
-        $.post(`/meteo`,{city: city}, (data) => {
-            $("#meteo-show").append(data);
-            let cityArray = [];
-            let cities = $.cookie('cities'); // => "value"
-            console.log(cities);
-            if (cities != '') {
-                cityArray.push($.cookie('cities'), $('#city').val().trim());
-            }else{
-                cityArray.push($('#city').val().trim());
-            }
-            // let city = $('#city').val();
-            $.cookie('cities', cityArray); // set cookie
-            // $.removeCookie('name'); // => true
-            // console.log($.cookie('cities'));
-            $('#city').val('');
+        let cities = $.cookie('cities'); // => get cookie
+        let cityExist = false;
+        unescape(cities).split(',').forEach(element => {
+            if (element.toUpperCase() == city.toUpperCase()) {
+                cityExist = true;
+                $('#city').val('');
+            };
         });
+        if(!cityExist) {
+            $.post(`/meteo`,{city: city}, (data) => {
+                if (!data.error) {
+                    $("#meteo-show").append(data);
+                    let cityArray = new Array();
+                    if (cities != '') {
+                        cityArray.push($.cookie('cities'), $('#city').val().trim());
+                    }else{
+                        cityArray.push($('#city').val().trim());
+                    };
+                    $.cookie('cities', cityArray); // set cookie
+                };
+                $('#city').val('');
+            });
+        };
     });
     getWeather();
 });
 
 function closeWeather(id){
-    $(`section[data-id=${id}]`).remove();
+    cities = $.cookie('cities');
+    cities = unescape(cities).split(',');
+    city = $(`section[data-id=${id}] h2`).text();
+    if (id == 'error') {
+        city = null;
+    };
+    cities.forEach(function (value, i) {
+        if (value.toUpperCase() == city.toUpperCase()) {
+            cities.splice(i,1);
+            $.cookie('cities', cities);
+            $(`section[data-id=${id}]`).remove();
+        };
+    });
 };
 
 function getWeather() {
-    // console.log("toto");
     let citiesArray = new Array;
-    citiesArray.push($.cookie('cities'));
-    let count = 0;
-    // console.log(citiesArray);
-    // let array = citiesArray.split(',');
-    console.log(citiesArray.split(","));
-    for (let index = 0; index < citiesArray.length; index++) {
-        // const element = array[index];
-        console.log(index);
-    };
-    // citiesArray.forEach(item => {
-        
-    //     // console.log(item);
-    //     console.log('toto');
-    //     // $.post(`/meteo`,{city: item}, (data) => {
-    //     //     $("#meteo-show").append(data);
-    //     // });
-
-    // });
-    // console.log(citiesArray);
-}
-
-
+    citiesArray.push(unescape($.cookie('cities')));
+    citiesArray = unescape(citiesArray).split(',');
+    citiesArray.forEach(item => {
+        $.post(`/meteo`,{city: item}, (data) => {
+            if (!data.erreur) {
+                $("#meteo-show").append(data);
+            };
+        });
+    });
+};

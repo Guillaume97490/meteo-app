@@ -15,13 +15,10 @@ exports.weather = (req,res)=> {
         if (req.xhr) {
             res.set('Content-Type', 'text/html');
             weather = JSON.parse(weather);
-            if ( weather.cod != 200)
-                return res.send(Buffer.from(`<section data-id="error" class="col-md-6 p-0">
-                    <div class="bg-white p-4 rounded mb-2 mx-1">
-                        <button onclick="closeWeather('error')" class="close"><span class="float-right text-danger"><i class="fas fa-times"></i></span></button>
-                        <p>Lieu Introuvable</p>
-                    </div>
-                </section>`,'utf8'));
+            if ( weather.cod != 200){
+                res.set('Content-Type', 'application/json');
+                return res.json({"error":"1","message":"Lieux inconnue"});
+            };
             let meteoTpl = require('../views/templates/meteo.js').data;
             let compiled = ejs.compile(meteoTpl);
             let html = compiled({'data' : weather});
