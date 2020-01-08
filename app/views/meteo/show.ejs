@@ -1,0 +1,44 @@
+<% include ../templates/head.ejs %>
+    <section class="bg-white p-4 rounded">
+            
+        <% if(data.cod == '404' || data.cod == '401') { %>
+            Introuvable.
+        <% } else { %>
+            <% if(data.name) { %><h1><%= data.name %></h1><% } %>
+            <% if(data.coord.lon) { %><span class="small">Longitude: <%= data.coord.lon %></span><% } %>
+            <% if(data.coord.lat) { %><span class="small">, Latitude: <%= data.coord.lat %></span><% } %>
+            <% if(data.weather[0].main) { %>
+                <div>
+                    <% if(data.weather[0].description) { %>
+                        <span><%= data.weather[0].description %></span>
+                    <% } %>
+                    <% if(data.weather[0].icon) { %>
+                        <img class="img-fluid" src="http://openweathermap.org/img/wn/<%= data.weather[0].icon %>@2x.png" alt="<%= data.weather[0].main %>">
+                    <% } %>
+                    
+                </div>
+            <% } %>
+            <% if(data.main) { %>
+                <div>
+                    Température :
+                    <ul>
+                        <% if(data.main.temp) { %><li>Actuelle: <%= data.main.temp.toFixed(0) %> °C</li><% } %>
+                        <% if(data.main.temp_min) { %><li>min: <%= data.main.temp_min.toFixed(0) %> °C</li><% } %>
+                        <% if(data.main.max) { %><li>max: <%= data.main.temp_max.toFixed(0) %> °C</li><% } %>
+                        
+                    </ul>
+                </div>
+            <% } %>
+            <div>
+                <% if(data.main.pressure) { %>Pression atmosphérique : <%= data.main.pressure.toFixed(0) %> hPa<% } %>
+            </div>
+            <div>
+                <% if(data.main.humidity) { %>humidité:  <%= data.main.humidity.toFixed(0) %> %<% } %>
+            </div>
+            <div>
+                <% if(data.wind.speed) { %>Vents: <%= data.wind.speed.toFixed(0) %> Metres/s<% } %>
+            </div>
+        <% } %>
+    </section>
+
+<% include ../templates/footer.ejs %>

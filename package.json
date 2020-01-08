@@ -1,0 +1,21 @@
+{
+  "name": "meteo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --delay 0.3 app.js -e ejs,js,json",
+    "stop": "lsof -ti :3000 | xargs kill"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^2.7.4",
+    "express": "^4.17.1",
+    "path": "^0.12.7",
+    "request": "^2.88.0",
+    "validator": "^12.1.0"
+  }
+}

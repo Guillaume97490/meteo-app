@@ -1,0 +1,20 @@
+html,
+body {
+  height: 100%;
+}
+
+#page-content {
+  flex: 1 0 auto;
+  position: relative;
+}
+.bg-grey{
+  background: rgb(240, 240, 240);
+}
+.rounded{
+  border-radius: 0.5rem!important;
+}
+
+button[type="submit"]{
+  top: 0;
+  right: 0;
+}

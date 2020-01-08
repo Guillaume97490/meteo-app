@@ -1,0 +1,36 @@
+<% include ../templates/head.ejs %>
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">Météo</h1>
+        </div>
+        <div class="col-md-12 p-1">
+            <section class="mb-3 bg-white p-4 rounded">
+                
+                <form id="meteo-form" action="/meteo" method="post">
+        
+                    <div class="form-group">
+                        <label for="city">Lieu :</label>
+                        <div class="position-relative">
+                            <input name="city" type="text" id="city" aria-label="city" class="form-control" required placeholder="Paris">
+                            <button type="submit" class="position-absolute  btn p-0">
+                                <span class="btn btn-success">Afficher la meteo</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- <button class="btn btn-success" type="button" onclick="getWeather()" >Afficher</button> -->
+        
+                </form>
+            </section>
+        </div>
+        
+        <div class="col-md-12">
+            <div class="row" id="meteo-show">
+                
+            </div>
+        </div>
+    </div>
+   
+
+    
+
+<% include ../templates/footer.ejs %>
