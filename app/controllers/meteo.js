@@ -15,7 +15,7 @@ exports.weather = (req,res)=> {
         if (req.xhr) {
             res.set('Content-Type', 'text/html');
             weather = JSON.parse(weather);
-            if ( weather.cod != 200){
+            if ( weather.cod != 200 || Number(city)) {
                 res.set('Content-Type', 'application/json');
                 return res.json({"error":"1","message":"Lieux inconnue"});
             };

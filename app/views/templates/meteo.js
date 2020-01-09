@@ -1,5 +1,5 @@
 
-exports.data = `<section data-id="<%= data.id %>" class="col-md-6 p-0">
+exports.data = `<section data-id="<%= data.id %>" class="blur col-md-6 col-lg-4 p-0">
     <div class="bg-white p-4 rounded mb-2 mx-1">
         <button onclick="closeWeather(<%= data.id %>)" class="close"><span class="float-right text-danger"><i class="fas fa-times"></i></span></button>
         <h2 class="text-center mb-0"><%= data.name %></h2>

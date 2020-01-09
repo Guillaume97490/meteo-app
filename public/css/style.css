@@ -6,15 +6,45 @@ body {
 #page-content {
   flex: 1 0 auto;
   position: relative;
+  background: url(../img/blue-skies-bright-clouds-1179172.jpg);
 }
+
 .bg-grey{
   background: rgb(240, 240, 240);
 }
 .rounded{
-  border-radius: 0.5rem!important;
+  border-radius: 0.5rem !important;
+}
+.blur{
+  z-index: 2;
+}
+
+.blur > div{
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.7) !important;
+}
+
+.blur:before{
+  content: ''; 
+  background: url(../img/blue-skies-bright-clouds-1179172.jpg) fixed 0 0;
+    -webkit-filter: blur(5px);
+           -moz-filter: blur(5px);
+            -ms-filter: blur(5px);
+             -o-filter: blur(5px);
+                filter: blur(5px);
+    position: absolute;
+    top: 0;
+    bottom:0;
+    left: 0;
+    right: 0; 
+    z-index: -1;
 }
 
 button[type="submit"]{
   top: 0;
   right: 0;
+}
+
+.bg-white-07 {
+  background: rgba(255, 255, 255, 0.7) !important;
 }
